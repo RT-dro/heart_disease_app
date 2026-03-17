@@ -87,18 +87,51 @@ st_slope = st.sidebar.selectbox(
 # ---------------------------------------------------
 # CREATE DATAFRAME
 # ---------------------------------------------------
+# Encode categorical variables
+
+sex = 1 if sex == "M" else 0
+
+cp_map = {
+    "ATA": 0,
+    "NAP": 1,
+    "ASY": 2,
+    "TA": 3
+}
+
+restecg_map = {
+    "Normal": 0,
+    "ST": 1,
+    "LVH": 2
+}
+
+angina_map = {
+    "N": 0,
+    "Y": 1
+}
+
+slope_map = {
+    "Up": 0,
+    "Flat": 1,
+    "Down": 2
+}
+
+cp = cp_map[chest_pain]
+restecg = restecg_map[resting_ecg]
+exang = angina_map[exercise_angina]
+slope = slope_map[st_slope]
+
 input_data = pd.DataFrame({
     "Age":[age],
     "Sex":[sex],
-    "ChestPainType":[chest_pain],
+    "ChestPainType":[cp],
     "RestingBP":[resting_bp],
     "Cholesterol":[cholesterol],
     "FastingBS":[fasting_bs],
-    "RestingECG":[resting_ecg],
+    "RestingECG":[restecg],
     "MaxHR":[max_hr],
-    "ExerciseAngina":[exercise_angina],
+    "ExerciseAngina":[exang],
     "Oldpeak":[oldpeak],
-    "ST_Slope":[st_slope]
+    "ST_Slope":[slope]
 })
 
 st.subheader("Patient Data")
